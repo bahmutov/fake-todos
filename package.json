@@ -1,0 +1,25 @@
+{
+  "name": "fake-todos",
+  "version": "1.0.0",
+  "description": "Generates a list of mock todos for TodoMVC apps ;)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/fake-todos.git"
+  },
+  "keywords": [
+    "fake",
+    "mock",
+    "todo",
+    "todos"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/fake-todos/issues"
+  },
+  "homepage": "https://github.com/bahmutov/fake-todos#readme"
+}
