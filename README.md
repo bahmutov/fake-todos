@@ -38,6 +38,8 @@ make distant relatives    tomorrow  false  a052cc1d-012b-40bd-ae3b-07c1efb2432e
 learn Node.js             tomorrow  false  1b00ce60-e419-4eaa-81aa-bf9de737b99f
 ```
 
+Or you can see [this TodoMVC demo](http://glebbahmutov.com/hydrate-vdom-todo/)
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2015
