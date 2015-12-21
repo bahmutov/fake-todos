@@ -68,3 +68,5 @@ OTHER DEALINGS IN THE SOFTWARE.
 [fake-todos-url]: https://npmjs.org/package/fake-todos
 [fake-todos-ci-image]: https://travis-ci.org/bahmutov/fake-todos.png?branch=master
 [fake-todos-ci-url]: https://travis-ci.org/bahmutov/fake-todos
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
