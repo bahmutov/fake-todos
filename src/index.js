@@ -62,5 +62,8 @@ function generateFakeTodos (n) {
 module.exports = generateFakeTodos
 
 if (!module.parent) {
-  console.log(generateFakeTodos(5))
+  !(function () {
+    require('console.table')
+    console.table(generateFakeTodos(5))
+  }())
 }

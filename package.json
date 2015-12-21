@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/bahmutov/fake-todos#readme",
   "devDependencies": {
+    "console.table": "0.4.0",
     "mocha": "2.3.4",
     "pre-git": "3.1.1",
     "semantic-release": "^4.3.5",
@@ -41,7 +42,9 @@
   ],
   "config": {
     "pre-git": {
-      "commit-msg": ["simple"],
+      "commit-msg": [
+        "simple"
+      ],
       "pre-commit": [
         "npm run lint",
         "npm run test"

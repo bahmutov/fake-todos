@@ -24,6 +24,20 @@ var items = generate(100)
 */
 ```
 
+## Sample output
+
+You can see a few examples by running `node src/index.js`
+
+```
+what                      due       done   id                                  
+------------------------  --------  -----  ------------------------------------
+tweet milk                tomorrow  false  ce889dbb-ce91-49b4-beba-809a9bef8ea6
+try to clean needle work  tomorrow  false  2c956df1-216e-4b16-8b46-2f75a876b0b0
+make milk                 tomorrow  false  1f666512-4484-4b1b-846e-ee7650bb4a6c
+make distant relatives    tomorrow  false  a052cc1d-012b-40bd-ae3b-07c1efb2432e
+learn Node.js             tomorrow  false  1b00ce60-e419-4eaa-81aa-bf9de737b99f
+```
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2015
