@@ -2,15 +2,10 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const uuid = require('./uuid')
 
-const modifiers = ['try to', 'avoid', 'skip', '', '', '', '', '']
-const verbs = [
-  'learn', 'clean', 'buy', 'pick', 'do', 'make', 'fix', 'exercise',
-  'tweet', 'promote', 'code', 'play', 'find'
-]
-const nouns = [
-  'Italian', 'milk', 'needle work', 'chess', 'Node.js',
-  'books', 'boots', 'fishing rod', 'distant relatives'
-]
+const dictionary = require('./dictionary')
+const modifiers = dictionary.modifiers
+const verbs = dictionary.verbs
+const nouns = dictionary.nouns
 
 // TODO handle verbs like "look up"
 function suffix (modifier) {
