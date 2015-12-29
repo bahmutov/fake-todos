@@ -7,6 +7,8 @@
 [![semantic-release][semantic-image] ][semantic-url]
 [![manpm](https://img.shields.io/badge/manpm-%E2%9C%93-3399ff.svg)](https://github.com/bahmutov/manpm)
 
+[demo page](http://glebbahmutov.com/fake-todos/)
+
 ## Install and use
 
 `npm install --save fake-todos`
@@ -38,7 +40,8 @@ make distant relatives    tomorrow  false  a052cc1d-012b-40bd-ae3b-07c1efb2432e
 learn Node.js             tomorrow  false  1b00ce60-e419-4eaa-81aa-bf9de737b99f
 ```
 
-Or you can see [this TodoMVC demo](http://glebbahmutov.com/hydrate-vdom-todo/)
+Or you can see yourself the results by reloading the 
+[demo page](http://glebbahmutov.com/fake-todos/)
 
 ## Related
 
