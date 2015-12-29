@@ -40,6 +40,12 @@ learn Node.js             tomorrow  false  1b00ce60-e419-4eaa-81aa-bf9de737b99f
 
 Or you can see [this TodoMVC demo](http://glebbahmutov.com/hydrate-vdom-todo/)
 
+## Related
+
+* [virtual-todos](https://github.com/bahmutov/virtual-todos) for rendering virtual DOM from todos
+* [todomvc-model](https://github.com/bahmutov/todomvc-model) is the model that keeps
+  todo items and responds to outside events
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2015
