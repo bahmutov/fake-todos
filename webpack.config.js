@@ -1,4 +1,5 @@
-module.exports = {
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+module.exports = [{
   output: {
     library: 'fakeTodos',
     libraryTarget: 'umd',
@@ -6,6 +7,27 @@ module.exports = {
     filename: 'fake-todos.js'
   },
   entry: {
-    library: './src/index'
+    'fake-todos': './src/index'
   }
-}
+}, {
+  output: {
+    path: './dist',
+    filename: 'demo-app.js'
+  },
+  entry: {
+    'demo-app': './src/demo-app'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin('demo-app.css', {
+      allChunks: true
+    })
+  ]
+}]

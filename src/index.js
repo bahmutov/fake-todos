@@ -56,7 +56,15 @@ function generateFakeTodos (n) {
 
 module.exports = generateFakeTodos
 
-if (!module.parent) {
+function isBrowser () {
+  return typeof window === 'object'
+}
+
+function isStandalone () {
+  return !module.parent
+}
+
+if (!isBrowser() && isStandalone()) {
   !(function () {
     require('console.table')
     console.table(generateFakeTodos(5))

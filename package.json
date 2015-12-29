@@ -30,11 +30,19 @@
   "homepage": "https://github.com/bahmutov/fake-todos#readme",
   "devDependencies": {
     "console.table": "0.4.0",
+    "css-loader": "0.23.1",
+    "extract-text-webpack-plugin": "0.9.1",
     "git-issues": "1.2.0",
     "mocha": "2.3.4",
     "pre-git": "3.1.2",
     "semantic-release": "^4.3.5",
     "standard": "5.4.1",
+    "style-loader": "0.13.0",
+    "todomvc-app-css": "2.0.3",
+    "todomvc-common": "1.0.2",
+    "todomvc-model": "1.1.0",
+    "virtual-dom": "2.1.1",
+    "virtual-todos": "1.2.0",
     "webpack": "1.12.9"
   },
   "dependencies": {
@@ -42,7 +50,7 @@
     "lazy-ass": "1.3.0"
   },
   "files": [
-    "dist",
+    "dist/fake-todos.js",
     "src/*.js",
     "!src/*-spec.js"
   ],
