@@ -10,4 +10,4 @@ function uuid () {
   return uuid
 }
 
-module.exports = uuid
+export default uuid

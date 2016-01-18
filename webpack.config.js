@@ -15,7 +15,7 @@ module.exports = [{
     filename: 'demo-app.js'
   },
   entry: {
-    'demo-app': './src/demo-app'
+    'demo-app': './demo/demo-app'
   },
   module: {
     loaders: [

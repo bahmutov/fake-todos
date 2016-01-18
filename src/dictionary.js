@@ -14,8 +14,9 @@ const nouns = [
   'knife', 'castle', 'laptop', 'principles', 'adults', 'bird'
 ]
 
-module.exports = {
-  modifiers: modifiers,
-  verbs: verbs,
-  nouns: nouns
-}
+// module.exports = {
+//   modifiers: modifiers,
+//   verbs: verbs,
+//   nouns: nouns
+// }
+export { modifiers, verbs, nouns }

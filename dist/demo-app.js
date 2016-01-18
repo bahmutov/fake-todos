@@ -48,9 +48,9 @@
 	__webpack_require__(2)
 
 	var Todos = __webpack_require__(3)
-	Todos.items = __webpack_require__(7)(100)
-	var virtualDom = __webpack_require__(15)(Todos)
-	var createElement = __webpack_require__(38)
+	Todos.items = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"..\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))(100)
+	var virtualDom = __webpack_require__(8)(Todos)
+	var createElement = __webpack_require__(31)
 	var rootNode = createElement(virtualDom)
 	document.body.appendChild(rootNode)
 
@@ -1098,596 +1098,14 @@
 
 
 /***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {const la = __webpack_require__(4)
-	const is = __webpack_require__(5)
-	const uuid = __webpack_require__(9)
-
-	const dictionary = __webpack_require__(10)
-	const modifiers = dictionary.modifiers
-	const verbs = dictionary.verbs
-	const nouns = dictionary.nouns
-
-	// TODO handle verbs like "look up"
-	function suffix (modifier) {
-	  const modifiersToSuffix = {
-	    avoid: 'ing',
-	    skip: 'ing'
-	  }
-	  return modifiersToSuffix[modifier] || ''
-	}
-
-	function addSuffix (verb, suffix) {
-	  if (!suffix) {
-	    return verb
-	  }
-	  if (/e$/.test(verb)) {
-	    return verb.substr(0, verb.length - 1) + suffix
-	  }
-	  return verb + suffix
-	}
-
-	function pick (set) {
-	  return set[Math.floor(Math.random() * set.length)]
-	}
-
-	function generateTodo () {
-	  const modifier = pick(modifiers)
-	  const verb = pick(verbs)
-	  const ending = suffix(modifier)
-	  const noun = pick(nouns)
-
-	  return {
-	    what: modifier + (modifier ? ' ' : '') + addSuffix(verb, ending) + ' ' + noun,
-	    due: 'tomorrow',
-	    done: false,
-	    id: uuid()
-	  }
-	}
-
-	function generateFakeTodos (n) {
-	  la(is.positive(n), 'invalid number of todos to create', n)
-	  var items = new Array(n)
-	  var k
-	  for (k = 0; k < n; k += 1) {
-	    items[k] = generateTodo()
-	  }
-	  return items
-	}
-
-	module.exports = generateFakeTodos
-
-	function isBrowser () {
-	  return typeof window === 'object'
-	}
-
-	function isStandalone () {
-	  return !module.parent
-	}
-
-	if (!isBrowser() && isStandalone()) {
-	  !(function () {
-	    __webpack_require__(11)
-	    console.table(generateFakeTodos(5))
-	  }())
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module)))
-
-/***/ },
+/* 7 */,
 /* 8 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	// from http://jsfiddle.net/briguy37/2mvfd/
-	function uuid () {
-	  var d = new Date().getTime()
-	  var uuidFormat = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-	  var uuid = uuidFormat.replace(/[xy]/g, function (c) {
-	    var r = (d + Math.random() * 16) % 16 | 0
-	    d = Math.floor(d / 16)
-	    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
-	  })
-	  return uuid
-	}
-
-	module.exports = uuid
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	// add empty modifiers to sometimes not include one
-	const modifiers = ['try to', 'avoid', 'skip', 'pretend to',
-	  'help', '', '', '', '', '']
-
-	const verbs = [
-	  'learn', 'clean', 'buy', 'pick', 'do', 'make', 'fix', 'exercise',
-	  'tweet', 'promote', 'code', 'play', 'find', 'crash', 'submit',
-	  'skip', 'add', 'forget', 'avoid', 'throw', 'buy', 'sell'
-	]
-
-	const nouns = [
-	  'Italian', 'milk', 'needle work', 'chess', 'Node.js', 'fines',
-	  'books', 'boots', 'fishing rod', 'distant relatives', 'charges',
-	  'knife', 'castle', 'laptop', 'principles', 'adults', 'bird'
-	]
-
-	module.exports = {
-	  modifiers: modifiers,
-	  verbs: verbs,
-	  nouns: nouns
-	}
-
-
-/***/ },
-/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	  'use strict';
-
-	  function setupConsoleTable() {
-	    if (typeof console === 'undefined') {
-	      throw new Error('Weird, console object is undefined');
-	    }
-	    if (typeof console.table === 'function') {
-	      return;
-	    }
-
-	    var Table = __webpack_require__(12);
-
-	    function arrayToString(arr) {
-	      var t = new Table();
-	      arr.forEach(function (record) {
-	        if (typeof record === 'string' ||
-	          typeof record === 'number') {
-	          t.cell('item', record);
-	        } else {
-	          // assume plain object
-	          Object.keys(record).forEach(function (property) {
-	            t.cell(property, record[property]);
-	          });
-	        }
-	        t.newRow();
-	      });
-	      return t.toString();
-	    }
-
-	    function printTitleTable(title, arr) {
-	      var str = arrayToString(arr);
-	      var rowLength = str.indexOf('\n');
-	      if (rowLength > 0) {
-	        if (title.length > rowLength) {
-	          rowLength = title.length;
-	        }
-	        console.log(title);
-	        var sep = '-', k, line = '';
-	        for (k = 0; k < rowLength; k += 1) {
-	          line += sep;
-	        }
-	        console.log(line);
-	      }
-	      console.log(str);
-	    }
-
-	    function objectToArray(obj) {
-	      var keys = Object.keys(obj);
-	      return keys.map(function (key) {
-	        return {
-	          key: key,
-	          value: obj[key]
-	        };
-	      });
-	    }
-
-	    function objectToString(obj) {
-	      return arrayToString(objectToArray(obj));
-	    }
-
-	    console.table = function () {
-	      var args = Array.prototype.slice.call(arguments);
-
-	      if (args.length === 2 &&
-	        typeof args[0] === 'string' &&
-	        Array.isArray(args[1])) {
-
-	        return printTitleTable(args[0], args[1]);
-	      }
-	      args.forEach(function (k) {
-	        if (typeof k === 'string') {
-	          return console.log(k);
-	        } else if (Array.isArray(k)) {
-	          console.log(arrayToString(k));
-	        } else if (typeof k === 'object') {
-	          console.log(objectToString(k));
-	        }
-	      });
-	    };
-	  }
-
-	  setupConsoleTable();
-	}());
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = Table
-
-	Table.string = function (val) {
-	    if (val === undefined) return ''
-	    return String(val)
-	}
-
-	Table.Number = function (digits) {
-	    return function (val, width) {
-	        if (val === undefined) return ''
-	        if (typeof val != 'number')
-	            throw new Error(String(val) + ' is not a number')
-	        var s = digits == null ? String(val) : val.toFixed(digits).toString()
-	        return Table.padLeft(s, width)
-	    }
-	}
-
-	Table.RightPadder = function (char) {
-	    char = char || ' '
-	    return function (val, length) {
-	        var s = String(val)
-	        var l = s.length
-	        for (var i = 0; i < length - l; i++) {
-	            s += char
-	        }
-	        return s
-	    }
-	}
-
-	Table.LeftPadder = function (char) {
-	    char = char || ' '
-	    return function (val, length) {
-	        var ret = ''
-	        var s = String(val)
-	        for (var i = 0; i < length - s.length; i++) {
-	            ret += char
-	        }
-	        ret += s
-	        return ret
-	    }
-	}
-
-	Table.padLeft = Table.LeftPadder()
-
-	Table.printArray = function (arr, format, cb) {
-	    format = typeof format == 'function' ? format : Formatter(format)
-	    cb = cb || function (t) {
-	        return t.toString()
-	    }
-
-	    var t = new Table
-	    var cell = t.cell.bind(t)
-
-	    arr.forEach(function (obj) {
-	        format(obj, cell)
-	        t.newRow()
-	    })
-	    return cb(t)
-	}
-
-	Table.printObj = function (obj, format, cb) {
-	    format = typeof format == 'function' ? format : Formatter(format)
-	    cb = cb || function (t) {
-	        return t.printTransposed(' : ')
-	    }
-
-	    var t = new Table
-	    format(obj, t.cell.bind(t))
-	    t.newRow()
-	    return cb(t)
-	}
-
-	function Formatter (opts) {
-	    opts = opts || {}
-	    return function (obj, cell) {
-	        for (var key in obj) {
-	            if (!obj.hasOwnProperty(key)) continue
-	            var o = opts[key]
-	            cell(
-	                (o && o.name) || key,
-	                obj[key],
-	                o && o.printer,
-	                o && o.width
-	            )
-	        }
-	    }
-	}
-
-
-	Table.Row = Row
-	function Row () {
-	    Object.defineProperties(this, {
-	        __printers: {
-	            value: {},
-	            enumerable: false
-	        },
-	        __cell: {
-	            value: function (col, val, printer) {
-	                this[col] = val
-	                this.__printers[col] = printer
-	            },
-	            enumerable: false
-	        }
-	    })
-	}
-
-
-	Table.print = print
-	function print (rows, columns, shift) {
-	    var padSpaces = Table.RightPadder()
-	    var widths = {}
-
-	    function setWidth (col, width) {
-	        var isFixed = columns[col].width != null
-	        if (isFixed) {
-	            widths[col] = columns[col].width
-	        } else {
-	            if (widths[col] > width) return
-	            widths[col] = width
-	        }
-	    }
-
-	    function cellPrinter (row, col) {
-	        return (row.__printers && row.__printers[col]) || Table.string
-	    }
-
-	    function calcWidths () {
-	        rows.forEach(function (row) {
-	            for (var key in columns) {
-	                setWidth(key, cellPrinter(row, key).call(row, row[key]).length)
-	            }
-	        })
-	    }
-
-	    function printRow (cb) {
-	        var s = ''
-	        var firstColumn = true
-	        for (var key in columns) {
-	            if (!firstColumn) s += shift
-	            firstColumn = false
-	            var width = widths[key]
-	            s += printCell(cb(key, width), width)
-	        }
-	        s += '\n'
-	        return s
-	    }
-
-	    function printCell (s, width) {
-	        if (s.length <= width) return padSpaces(s, width)
-	        s = s.slice(0, width)
-	        if (width > 3) s = s.slice(0, -3).concat('...')
-	        return s
-	    }
-
-	    calcWidths()
-
-	    return rows.map(function (row) {
-	        return printRow(function (key, width) {
-	            return cellPrinter(row, key).call(row, row[key], width)
-	        })
-	    }).join('')
-
-	}
-
-
-	function Table () {
-	    this.columns = {} /* @api: public */
-	    this.rows = [] /* @api: public */
-	    this._row = new Row
-	}
-
-
-	Table.prototype.cell = function (col, val, printer, width) {
-	    this._row.__cell(col, val, printer)
-	    var c = this.columns[col] || (this.columns[col] = {})
-	    if (width != null) c.width = width
-	    return this
-	}
-
-	Table.prototype.newRow = Table.prototype.newLine = function () {
-	    this.rows.push(this._row)
-	    this._row = new Row
-	    return this
-	}
-
-	Table.prototype.sort = __webpack_require__(13)
-
-	Table.aggr = __webpack_require__(14)
-
-	Table.prototype.totals = null /* @api: public */
-
-	Table.prototype.total = function (col, fn, printer) {
-	    fn = fn || Table.aggr.sum
-	    printer = printer || fn.printer
-
-	    this.totals = this.totals || new Row
-
-	    var val
-	    var rows = this.rows
-
-	    this.totals.__cell(col, null, function (_, width) {
-	        if (width != null) return printer(val, width)
-	        val = rows.reduce(function (val, row, index) {
-	            return fn(val, row[col], index, rows.length)
-	        }, null)
-	        return printer(val)
-	    })
-	    return this
-	}
-
-	Table.prototype.shift = '  '
-
-	Table.prototype.print = function () {
-	    return print(this.rows, this.columns, this.shift)
-	}
-
-	Table.prototype.printTransposed = function (delimeter) {
-	    var t = new Table
-	    if (delimeter) t.shift = delimeter
-
-	    function Printer (row, key) {
-	        var p = row.__printers && row.__printers[key]
-	        if (p) return function (val) {
-	            return p(val)
-	        }
-	    }
-
-	    for (var key in this.columns) {
-	        t.cell('h', key)
-	        this.rows.forEach(function (row, index) {
-	            t.cell('f' + index, row[key], Printer(row, key))
-	        })
-	        t.newRow()
-	    }
-	    return t.print()
-	}
-
-	Table.prototype.toString = function () {
-	    var padWithDashs = Table.RightPadder('-')
-	    var delimeter = this.createRow(function () {
-	        return ['', padWithDashs]
-	    })
-	    var head = this.createRow(function (key) {
-	        return [key]
-	    })
-	    var rows = [head, delimeter].concat(this.rows)
-	    if (this.totals) {
-	        rows = rows.concat([delimeter, this.totals])
-	    }
-	    return print(rows, this.columns, this.shift)
-	}
-
-	Table.prototype.createRow = function (cb) {
-	    var row = new Row
-	    for (var key in this.columns) {
-	        var args = cb(key)
-	        row.__cell(key, args[0], args[1])
-	    }
-	    return row
-	}
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = sort
-
-	function sort (comparator) {
-	    if (typeof comparator != 'function') {
-	        var sortKeys = Array.isArray(comparator)
-	            ? comparator
-	            : Object.keys(this.columns)
-	        comparator = KeysComparator(sortKeys)
-	    }
-	    this.rows.sort(comparator)
-	    return this
-	}
-
-	function KeysComparator (keys) {
-	    var comparators = keys.map(function (key) {
-	        var sortFn = 'asc'
-
-	        var m = /(.*)\|\s*(asc|des)\s*$/.exec(key)
-	        if (m) {
-	            key = m[1]
-	            sortFn = m[2]
-	        }
-
-	        return function (a, b) {
-	            var ret = compare(a[key], b[key])
-	            return sortFn == 'asc' ? ret : -1 * ret
-	        }
-	    })
-
-	    return function (a, b) {
-	        for (var i = 0; i < comparators.length; i++) {
-	            var res = comparators[i](a, b)
-	            if (res != 0) return res
-	        }
-	        return 0
-	    }
-	}
-
-	function compare (a, b) {
-	    if (a === b) return 0
-	    if (a === undefined) return 1
-	    if (b === undefined) return -1
-	    if (a === null) return 1
-	    if (b === null) return -1
-	    if (a > b) return 1
-	    if (a < b) return -1
-	    return compare(String(a), String(b))
-	}
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var padLeft = __webpack_require__(12).padLeft
-
-	var Printer = exports.Printer = function (name, format) {
-	    return function (val, width) {
-	        var s = name + ' ' + format(val)
-	        return width == null
-	            ? s
-	            : padLeft(s, width)
-	    }
-	}
-
-
-	exports.sum = function (sum, val) {
-	    sum = sum || 0
-	    return sum += val
-	}
-
-	exports.sum.printer = Printer('\u2211', String)
-
-
-	exports.avg = function (sum, val, index, length) {
-	    sum = sum || 0
-	    sum += val
-	    return index + 1 == length
-	        ? sum / length
-	        : sum
-	}
-
-	exports.avg.printer = Printer('Avg:', String)
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const h = __webpack_require__(16)
-	const header = __webpack_require__(34)
-	const renderTodos = __webpack_require__(35)
-	const footer = __webpack_require__(37)
+	const h = __webpack_require__(9)
+	const header = __webpack_require__(27)
+	const renderTodos = __webpack_require__(28)
+	const footer = __webpack_require__(30)
 	const la = __webpack_require__(4)
 	const is = __webpack_require__(5)
 	const isTodos = is.schema({
@@ -1711,33 +1129,33 @@
 
 
 /***/ },
-/* 16 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var h = __webpack_require__(17)
+	var h = __webpack_require__(10)
 
 	module.exports = h
 
 
 /***/ },
-/* 17 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isArray = __webpack_require__(18);
+	var isArray = __webpack_require__(11);
 
-	var VNode = __webpack_require__(19);
-	var VText = __webpack_require__(25);
-	var isVNode = __webpack_require__(21);
-	var isVText = __webpack_require__(26);
-	var isWidget = __webpack_require__(22);
-	var isHook = __webpack_require__(24);
-	var isVThunk = __webpack_require__(23);
+	var VNode = __webpack_require__(12);
+	var VText = __webpack_require__(18);
+	var isVNode = __webpack_require__(14);
+	var isVText = __webpack_require__(19);
+	var isWidget = __webpack_require__(15);
+	var isHook = __webpack_require__(17);
+	var isVThunk = __webpack_require__(16);
 
-	var parseTag = __webpack_require__(27);
-	var softSetHook = __webpack_require__(29);
-	var evHook = __webpack_require__(30);
+	var parseTag = __webpack_require__(20);
+	var softSetHook = __webpack_require__(22);
+	var evHook = __webpack_require__(23);
 
 	module.exports = h;
 
@@ -1863,7 +1281,7 @@
 
 
 /***/ },
-/* 18 */
+/* 11 */
 /***/ function(module, exports) {
 
 	var nativeIsArray = Array.isArray
@@ -1877,14 +1295,14 @@
 
 
 /***/ },
-/* 19 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(20)
-	var isVNode = __webpack_require__(21)
-	var isWidget = __webpack_require__(22)
-	var isThunk = __webpack_require__(23)
-	var isVHook = __webpack_require__(24)
+	var version = __webpack_require__(13)
+	var isVNode = __webpack_require__(14)
+	var isWidget = __webpack_require__(15)
+	var isThunk = __webpack_require__(16)
+	var isVHook = __webpack_require__(17)
 
 	module.exports = VirtualNode
 
@@ -1955,17 +1373,17 @@
 
 
 /***/ },
-/* 20 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = "2"
 
 
 /***/ },
-/* 21 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(20)
+	var version = __webpack_require__(13)
 
 	module.exports = isVirtualNode
 
@@ -1975,7 +1393,7 @@
 
 
 /***/ },
-/* 22 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = isWidget
@@ -1986,7 +1404,7 @@
 
 
 /***/ },
-/* 23 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = isThunk
@@ -1997,7 +1415,7 @@
 
 
 /***/ },
-/* 24 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = isHook
@@ -2010,10 +1428,10 @@
 
 
 /***/ },
-/* 25 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(20)
+	var version = __webpack_require__(13)
 
 	module.exports = VirtualText
 
@@ -2026,10 +1444,10 @@
 
 
 /***/ },
-/* 26 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(20)
+	var version = __webpack_require__(13)
 
 	module.exports = isVirtualText
 
@@ -2039,12 +1457,12 @@
 
 
 /***/ },
-/* 27 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var split = __webpack_require__(28);
+	var split = __webpack_require__(21);
 
 	var classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/;
 	var notClassId = /^\.|#/;
@@ -2099,7 +1517,7 @@
 
 
 /***/ },
-/* 28 */
+/* 21 */
 /***/ function(module, exports) {
 
 	/*!
@@ -2211,7 +1629,7 @@
 
 
 /***/ },
-/* 29 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2234,12 +1652,12 @@
 
 
 /***/ },
-/* 30 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var EvStore = __webpack_require__(31);
+	var EvStore = __webpack_require__(24);
 
 	module.exports = EvHook;
 
@@ -2267,12 +1685,12 @@
 
 
 /***/ },
-/* 31 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var OneVersionConstraint = __webpack_require__(32);
+	var OneVersionConstraint = __webpack_require__(25);
 
 	var MY_VERSION = '7';
 	OneVersionConstraint('ev-store', MY_VERSION);
@@ -2293,12 +1711,12 @@
 
 
 /***/ },
-/* 32 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Individual = __webpack_require__(33);
+	var Individual = __webpack_require__(26);
 
 	module.exports = OneVersion;
 
@@ -2321,7 +1739,7 @@
 
 
 /***/ },
-/* 33 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -2347,10 +1765,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 34 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const h = __webpack_require__(16)
+	const h = __webpack_require__(9)
 
 	function render (Todos) {
 	  function isEnter (e) {
@@ -2379,11 +1797,11 @@
 
 
 /***/ },
-/* 35 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const h = __webpack_require__(16)
-	const renderTodo = __webpack_require__(36)
+	const h = __webpack_require__(9)
+	const renderTodo = __webpack_require__(29)
 
 	function render (Todos) {
 	  return h('section', {className: 'main'}, [
@@ -2406,10 +1824,10 @@
 
 
 /***/ },
-/* 36 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const h = __webpack_require__(16)
+	const h = __webpack_require__(9)
 
 	function render (Todos, todo) {
 	  return h('li', {className: todo.done ? 'completed' : '', key: todo.id}, [
@@ -2438,10 +1856,10 @@
 
 
 /***/ },
-/* 37 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const h = __webpack_require__(16)
+	const h = __webpack_require__(9)
 
 	function hashFragment () {
 	  return typeof window !== 'undefined' && window.location.hash.split('/')[1] || ''
@@ -2505,26 +1923,26 @@
 
 
 /***/ },
-/* 38 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createElement = __webpack_require__(39)
+	var createElement = __webpack_require__(32)
 
 	module.exports = createElement
 
 
 /***/ },
-/* 39 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(40)
+	var document = __webpack_require__(33)
 
-	var applyProperties = __webpack_require__(42)
+	var applyProperties = __webpack_require__(35)
 
-	var isVNode = __webpack_require__(21)
-	var isVText = __webpack_require__(26)
-	var isWidget = __webpack_require__(22)
-	var handleThunk = __webpack_require__(44)
+	var isVNode = __webpack_require__(14)
+	var isVText = __webpack_require__(19)
+	var isWidget = __webpack_require__(15)
+	var handleThunk = __webpack_require__(37)
 
 	module.exports = createElement
 
@@ -2566,12 +1984,12 @@
 
 
 /***/ },
-/* 40 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(41);
+	var minDoc = __webpack_require__(34);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -2588,17 +2006,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 41 */
+/* 34 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 42 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43)
-	var isHook = __webpack_require__(24)
+	var isObject = __webpack_require__(36)
+	var isHook = __webpack_require__(17)
 
 	module.exports = applyProperties
 
@@ -2697,7 +2115,7 @@
 
 
 /***/ },
-/* 43 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2708,13 +2126,13 @@
 
 
 /***/ },
-/* 44 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isVNode = __webpack_require__(21)
-	var isVText = __webpack_require__(26)
-	var isWidget = __webpack_require__(22)
-	var isThunk = __webpack_require__(23)
+	var isVNode = __webpack_require__(14)
+	var isVText = __webpack_require__(19)
+	var isWidget = __webpack_require__(15)
+	var isThunk = __webpack_require__(16)
 
 	module.exports = handleThunk
 
