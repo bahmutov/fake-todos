@@ -12,7 +12,8 @@
     "build": "webpack && build",
     "postinstall": "compile",
     "deploy": "grunty grunt-gh-pages gh-pages deploy.json",
-    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";"
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
+    "example": "NODE_PATH=.. node src/example.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "url": "https://github.com/bahmutov/fake-todos/issues"
   },
   "homepage": "https://github.com/bahmutov/fake-todos#readme",
+  "tonicExampleFilename": "src/example.js",
   "devDependencies": {
     "css-loader": "0.23.1",
     "extract-text-webpack-plugin": "0.9.1",
