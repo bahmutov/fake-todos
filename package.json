@@ -77,6 +77,7 @@
         "npm run test"
       ],
       "pre-push": [
+        "npm run example",
         "npm run size"
       ],
       "post-commit": [],
