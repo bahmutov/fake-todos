@@ -19,6 +19,9 @@
     "type": "git",
     "url": "https://github.com/bahmutov/fake-todos.git"
   },
+  "engines" : {
+    "node" : ">=4"
+  },
   "keywords": [
     "fake",
     "mock",
